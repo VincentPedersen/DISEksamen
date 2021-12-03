@@ -1,0 +1,26 @@
+{
+  "name": "diseksamen",
+  "version": "1.0.0",
+  "description": "DIS eksamen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VincentPedersen/DISEksamen.git"
+  },
+  "author": "Vincent Pedersen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VincentPedersen/DISEksamen/issues"
+  },
+  "homepage": "https://github.com/VincentPedersen/DISEksamen#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "http-proxy": "^1.18.1",
+    "https": "^1.0.0"
+  }
+}
