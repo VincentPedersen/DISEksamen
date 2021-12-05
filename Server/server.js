@@ -4,7 +4,8 @@ const server = express();
 const axios = require('axios');
 const https = require('https');
 const port = Math.floor((Math.random()*9999)+1);
-
+//Makes sure it works with self signed certificate
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 const options = {
     key: fs.readFileSync('../Cert/server.key'),
@@ -16,13 +17,13 @@ const options = {
 function register(){ //When the server turns on it sends a registration to the load balancer, letting it know a server is available and what it's port is
 return axios({
     method: 'get',
-    url: 'http://localhost:4200/register',
+    url: 'https://localhost:4200/register',
     data: {
         newPort: port
     }
     
 }).then(function (response) {
-    console.log(response);
+    //console.log(response);
   }).catch(function (error) {
     console.log(error);
   });
