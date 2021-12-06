@@ -66,6 +66,5 @@ function createClient (context,req){
         console.log(err)
     }
 }
-createClient(context,req);
 
 module.exports = createClient;
