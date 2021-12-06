@@ -4,6 +4,8 @@ const server = express();
 const axios = require('axios');
 const https = require('https');
 const port = Math.floor((Math.random()*9999)+1);
+server.use(express.urlencoded({extended: true}));
+server.use(express.json('application/json'));
 //Makes sure it works with self signed certificate
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
@@ -62,6 +64,16 @@ server.use(function(req, res, next) {
     });
     next();
 });
+
+const createClient = require('../Controllers/create')
+
+server.post('/createClient',createClient);
+
+
+
+
+
+
 createServer();
 register();
 
