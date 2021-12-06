@@ -18,3 +18,8 @@ class Reservations{
         this.balance = balance; 
     }
 }
+
+module.exports = {
+    Client,
+    Reservations
+}
