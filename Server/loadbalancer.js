@@ -12,8 +12,10 @@ let seaportServer = seaport.createServer()
 seaportServer.listen(5001);
 */
 const server = express();
-server.use(express.json());
-
+/*
+server.use(express.urlencoded({extended: true}));
+server.use(express.json('application/json'));
+*/
 const options = {
     key: fs.readFileSync('../Cert/server.key'),
     cert: fs.readFileSync('../Cert/server.cert')
@@ -36,20 +38,29 @@ let options2 = {
 let portArr = [];
 let proxy = httpProxy.createProxyServer(options2)
 
+//fixing stream issue with using POST and PUT with proxy 
+proxy.on('proxyReq', (proxyReq, req) => {
+    if (req.body && req.complete) {
+      const bodyData = JSON.stringify(req.body);
+      proxyReq.setHeader('Content-Type', 'application/json');
+      proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
+      proxyReq.write(bodyData);
+    }
+  });
 
 
-
-server.get('/register', (req, res) => { //Handles a request from a server by saving its designated port within an array
+server.get('/register',express.json(), (req, res) => { //Handles a request from a server by saving its designated port within an array
     console.log(req.body.newPort);
     portArr.push(req.body.newPort)
-    res.end('Hello')
+    res.end('Received') //Sends response back to server to avoid socket hang up 
 })
 server.on('error', (err) => { //Logs if an error occurs
     console.log(`server error:\n${err.stack}`);
   });
 
 let i = 0;
-server.get('/', (req, res) => { //Handles request from a client by forwarding its request to a server
+
+server.all(/^((?!register).)*$/,express.json(), (req, res) => { //Handles request from a client by forwarding its request to a server
     if(i == portArr.length) {
         i=0
     }
@@ -57,15 +68,8 @@ server.get('/', (req, res) => { //Handles request from a client by forwarding it
         res.send('No servers are currently available')
         res.end
     } else {
+        console.log(req.body)
         proxy.web(req, res, {target: 'https://localhost:' + portArr[i]});
         i++
     }
 });
-/*
-server.listen(4200, (err) => {
-    if (err) {
-        console.log(err)
-    } else {
-        console.log('Server listening on port: ' + 4200);
-    };
-});*/
