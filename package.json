@@ -6,6 +6,9 @@
     "start": "func start",
     "test": "echo \"No tests yet...\""
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "axios": "^0.24.0",
+    "http-proxy": "^1.18.1",
+    "tedious": "^14.0.0"
+  }
 }
