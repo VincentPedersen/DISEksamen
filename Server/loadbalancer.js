@@ -1,7 +1,6 @@
 const express = require('express');
 const https = require('https');
 const httpProxy = require('http-proxy');
-const seaport = require('seaport');
 const fs = require('fs');
 let port = 4200;
 
