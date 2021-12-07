@@ -1,8 +1,21 @@
 let Connection = require('tedious').Connection;
 let Request = require('tedious').Request;
 let TYPES = require('tedious').TYPES;
-const config = require('../Database/config.json');
-
+//const config = require('../Database/config.json');
+const config = {
+    "server": "vincentsdatingserver.database.windows.net",
+    "authentication": {
+        "type": "default",
+        "options": {
+            "userName": "Vincent",
+            "password": "Vin2021vin"
+        }
+    },
+    "options":{
+        "encrypt": true,
+        "database": "Travel Reservations"
+    }
+}
 
 const executeSQL = (context,firstName,lastName,streetAddress,city) => {
     let result = "";
