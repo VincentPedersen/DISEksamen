@@ -65,11 +65,18 @@ server.use(function(req, res, next) {
     next();
 });
 
-const createClient = require('../Controllers/create')
+const createClient = require('../Controllers/CRUDclient').createClient
+const deleteClient = require('../Controllers/CRUDclient').deleteClient;
+const getClient = require('../Controllers/CRUDclient').getClient;
+const updateClient = require('../Controllers/CRUDclient').updateClient;
 
 server.post('/createClient',createClient);
 
+server.delete('/createClient',deleteClient);
 
+server.get('/createClient',getClient);
+
+server.put('/createClient',updateClient);
 
 
 
