@@ -9,10 +9,11 @@ class Client{
 }
 
 class Reservations{
-    constructor(ReservationID,clientID,date,hotelName,price,balance){
-        this.ReservationID = ReservationID;
+    constructor(reservationID,clientID,dateStart,dateEnd,hotelName,price,balance){
+        this.reservationID = reservationID;
         this.clientID = clientID; 
-        this.date = date; 
+        this.dateStart = dateStart; 
+        this.dateEnd = dateEnd;
         this.hotelName = hotelName; 
         this.price = price; 
         this.balance = balance; 
