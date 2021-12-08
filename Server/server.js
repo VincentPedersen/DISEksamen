@@ -46,14 +46,6 @@ function createServer(){
     })
 
 }
-
-/*
-server.listen(port, () => {
-    console.log(`Server is listening on port: ${port}`)
-    register(); //Calling the register function
-});*/
-
-
     
 server.use(function(req, res, next) {
     req.socket.on("error", function() {
@@ -65,11 +57,18 @@ server.use(function(req, res, next) {
     next();
 });
 
-const createClient = require('../Controllers/CRUDclient').createClient
+const createClient = require('../Controllers/CRUDclient').createClient;
 const deleteClient = require('../Controllers/CRUDclient').deleteClient;
 const getClient = require('../Controllers/CRUDclient').getClient;
 const updateClient = require('../Controllers/CRUDclient').updateClient;
 
+const createReservation = require('../Controllers/CRUDReservation').createReservation;
+const deleteReservation = require('../Controllers/CRUDReservation').deleteReservation;
+const getReservation = require('../Controllers/CRUDReservation').getReservation;
+const updateReservation = require('../Controllers/CRUDReservation').updateReservation;
+
+
+//Endpoints for client
 server.post('/createClient',createClient);
 
 server.delete('/createClient',deleteClient);
@@ -77,6 +76,14 @@ server.delete('/createClient',deleteClient);
 server.get('/createClient',getClient);
 
 server.put('/createClient',updateClient);
+
+
+//Endpoints for reservation
+
+server.post('/reservation',createReservation);
+server.delete('/reservation',deleteReservation);
+server.get('/reservation',getReservation);
+server.put('/reservation',updateReservation);
 
 
 
