@@ -126,6 +126,7 @@ function reservation(context, req) {
       "Javascript HTTPS trigger function reservation processed a request"
     );
     context.log(req.method);
+    context.log(req.body.clientID)
     const method = req.method;
     const reservationID = req.query.reservationID || (req.body && req.body.reservationID);
     const clientID = req.query.clientID || (req.body && req.body.clientID);
@@ -134,6 +135,8 @@ function reservation(context, req) {
     const hotelName = req.query.hotelName || (req.body && req.body.hotelName);
     const price = req.query.price || (req.body && req.body.price);
     const balance = req.query.balance || (req.body && req.body.balance);
+
+    
 
     executeSQL(context,method,reservationID,clientID,dateStart,dateEnd,hotelName,price,balance);
   } catch (err) {
