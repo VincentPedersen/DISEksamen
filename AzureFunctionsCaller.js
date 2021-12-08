@@ -21,7 +21,7 @@ async function createClient(client){
 async function deleteClient(client){
     console.log(client)
     await axios.delete('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{
-        clientID:client.clientID
+        data:{clientID:client.clientID}
     },function(error,response,body){
         if(!error && response.statusCode == 200){
             console.log(body);
@@ -36,8 +36,8 @@ async function deleteClient(client){
 
 async function getClient(client){
     console.log(client)
-    await axios.get('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{
-        clientID:client.clientID
+    return axios.get('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{
+            data:{clientID:client.clientID}
     },function(error,response,body){
         if(!error && response.statusCode == 200){
             console.log(body);
@@ -85,9 +85,9 @@ async function createReservation(reservation){
 }
 
 async function deleteReservation(reservation){
-    
+    console.log(reservation.reservationID)
     await axios.delete('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
-        reservationID: reservation.reservationID
+        data:{reservationID:reservation.reservationID}
     },function(error,response,body){
         if(!error && response.statusCode == 200){
             console.log(body);
@@ -101,9 +101,9 @@ async function deleteReservation(reservation){
 }
 
 async function getReservation(reservation){
-    
+    console.log(reservation.reservationID)
     await axios.get('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
-        reservationID: reservation.reservationID
+        data:{reservationID:reservation.reservationID}
     },function(error,response,body){
         if(!error && response.statusCode == 200){
             console.log(body);

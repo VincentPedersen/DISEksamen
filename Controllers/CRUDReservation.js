@@ -17,11 +17,11 @@ function deleteReservation(req,res){
     res.end('Deleting Reservation')
 }
 
-function getReservation(req,res){
+async function getReservation(req,res){
     let getReservation = new Reservation(req.body.reservationID,'','','','','','');
 
-    azureCaller.getReservation(getReservation);
-    res.end('Getting the reservation')
+    let result = await azureCaller.getReservation(getReservation);
+    res.end(result)
 }
 
 function updateReservation(req,res){

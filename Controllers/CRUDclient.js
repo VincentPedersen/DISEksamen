@@ -17,11 +17,16 @@ function deleteClient(req,res){
     res.end('Response deleted')
 }
 
-function getClient(req,res){
+async function getClient(req,res){
     let getClient = new Client(req.body.clientID,'','','','');
 
-    azureCaller.getClient(getClient);
-    res.end('Getting the client!')
+    console.log(getClient)
+
+    let result = await azureCaller.getClient(getClient);
+
+    console.log(result)
+    res.end(result)
+    return result
 }
 
 function updateClient(req,res){
