@@ -3,7 +3,8 @@ const fs = require('fs');
 const server = express();
 const axios = require('axios');
 const https = require('https');
-const port = Math.floor((Math.random()*9999)+1);
+//Using port 0, because the OS will then automatically assign a free port
+const port = 0;
 server.use(express.urlencoded({extended: true}));
 server.use(express.json('application/json'));
 //Makes sure it works with self signed certificate
@@ -16,7 +17,7 @@ const options = {
 }
 
 
-function register(){ //When the server turns on it sends a registration to the load balancer, letting it know a server is available and what it's port is
+function register(port){ //When the server turns on it sends a registration to the load balancer, letting it know a server is available and what it's port is
 return axios({
     method: 'get',
     url: 'https://localhost:4200/register',
@@ -39,12 +40,19 @@ server.get('/', (req, res) => { //If the server gets a request from somewhere it
     
     res.send(`Response sent from port: ${port}`);
 })
-function createServer(){
+function createServer(port){
+    try {   
     let httpsServer = https.createServer(options,server).listen(port);
     httpsServer.on('listening', () => {
-        console.log(`Server is listening on port: ${port}`)
+        console.log(`Server is listening on port: ${httpsServer.address().port}`)
+        port = httpsServer.address().port
+        register(port);
     })
-
+    
+    } catch(error){
+        console.log('Something went wrong when creating the server, please try again')
+    }
+    
 }
     
 server.use(function(req, res, next) {
@@ -61,22 +69,20 @@ const createClient = require('../Controllers/CRUDclient').createClient;
 const deleteClient = require('../Controllers/CRUDclient').deleteClient;
 const getClient = require('../Controllers/CRUDclient').getClient;
 const updateClient = require('../Controllers/CRUDclient').updateClient;
+const getAllClients = require('../Controllers/CRUDclient').getAllClients;
 
 const createReservation = require('../Controllers/CRUDReservation').createReservation;
 const deleteReservation = require('../Controllers/CRUDReservation').deleteReservation;
 const getReservation = require('../Controllers/CRUDReservation').getReservation;
 const updateReservation = require('../Controllers/CRUDReservation').updateReservation;
+const getAllReservations = require('../Controllers/CRUDReservation').getAllReservations;
 
 
 //Endpoints for client
 server.post('/createClient',createClient);
-
 server.delete('/createClient',deleteClient);
-
 server.get('/createClient',getClient);
-
 server.put('/createClient',updateClient);
-
 
 //Endpoints for reservation
 
@@ -86,10 +92,11 @@ server.get('/reservation',getReservation);
 server.put('/reservation',updateReservation);
 
 
-
+server.get('/allClients',getAllClients);
+server.get('/allReservations',getAllReservations);
 
 createServer();
-register();
+
 
 
 

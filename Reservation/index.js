@@ -18,7 +18,7 @@ const config = {
 };
 
 const executeSQL = (context,method,reservationID,clientID,dateStart,dateEnd,hotelName,price,balance) => {
-  let result = "";
+  let result = [];
   var request;
   //Create connection object
   const connection = new Connection(config);
@@ -112,7 +112,7 @@ const executeSQL = (context,method,reservationID,clientID,dateStart,dateEnd,hote
   //Handle the result and send back from Azure SQL
   request.on("row", (columns) => {
     columns.forEach((column) => {
-      result += column.value;
+      result.push(column.value);
     });
   });
 
