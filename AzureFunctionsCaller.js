@@ -19,7 +19,6 @@ async function createClient(client){
 
 
 async function deleteClient(client){
-    console.log(client)
     await axios.delete('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{
         data:{clientID:client.clientID}
     },function(error,response,body){
@@ -35,12 +34,11 @@ async function deleteClient(client){
 }
 
 async function getClient(client){
-    console.log(client)
     return axios.get('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{
             data:{clientID:client.clientID}
     },function(error,response,body){
         if(!error && response.statusCode == 200){
-            console.log(body);
+            //console.log(body);
         }
     }).then(function(response){
         console.log("Success!");
@@ -52,7 +50,6 @@ async function getClient(client){
 }
 
 async function updateClient(client){
-    console.log(client)
     await axios.put('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{
         clientID:client.clientID, firstName: client.firstName,lastName:client.lastName,streetAddress:client.streetAddress,city:client.city
     },function(error,response,body){
@@ -67,9 +64,23 @@ async function updateClient(client){
     })
 }
 
+async function getAllClients(){
+    return axios.get('https://travelreservations.azurewebsites.net/api/AllClients?code=e7aZWatZm/swuM4Ufzy3UcSecVsTPYBRACoVHy39RR/LcsuC/0gZRg==',{
+    },function(error,response,body){
+        if(!error && response.statusCode == 200){
+            //console.log(body);
+        }
+    }).then(function(response){
+        console.log("Success!");
+        return response.data
+
+    }).catch(function(error){
+        console.log(error)
+    })
+}
+
 //Below are for Reservation
 async function createReservation(reservation){
-    
     await axios.post('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
         clientID: reservation.clientID,dateStart: reservation.dateStart,dateEnd:reservation.dateEnd,hotelName:reservation.hotelName,price:reservation.price,balance:reservation.balance
     },function(error,response,body){
@@ -85,7 +96,6 @@ async function createReservation(reservation){
 }
 
 async function deleteReservation(reservation){
-    console.log(reservation.reservationID)
     await axios.delete('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
         data:{reservationID:reservation.reservationID}
     },function(error,response,body){
@@ -101,8 +111,7 @@ async function deleteReservation(reservation){
 }
 
 async function getReservation(reservation){
-    console.log(reservation.reservationID)
-    await axios.get('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
+    return axios.get('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
         data:{reservationID:reservation.reservationID}
     },function(error,response,body){
         if(!error && response.statusCode == 200){
@@ -118,7 +127,6 @@ async function getReservation(reservation){
 }
 
 async function updateReservation(reservation){
-    
     await axios.put('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
         reservationID:reservation.reservationID,clientID: reservation.clientID,dateStart: reservation.dateStart,dateEnd:reservation.dateEnd,hotelName:reservation.hotelName,price:reservation.price,balance:reservation.balance
     },function(error,response,body){
@@ -133,14 +141,31 @@ async function updateReservation(reservation){
     })
 }
 
+async function getAllReservations(){
+    return axios.get('https://travelreservations.azurewebsites.net/api/AllReservations?code=PxMXQGUrDh6SNNbZDFnNNsdSTcHUEqL5Q1LXEFjEAPSfcJtt8/fBwg==',{
+    },function(error,response,body){
+        if(!error && response.statusCode == 200){
+            console.log(body);
+        }
+    }).then(function(response){
+        console.log("Success!");
+        return response.data
+
+    }).catch(function(error){
+        console.log(error)
+    })
+}
+
 module.exports = {
     createClient,
     deleteClient,
     getClient,
     updateClient,
+    getAllClients,
 
     createReservation,
     deleteReservation,
     getReservation,
-    updateReservation
+    updateReservation,
+    getAllReservations
 }

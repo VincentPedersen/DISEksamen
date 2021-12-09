@@ -23,7 +23,7 @@ const options = {
 
 let httpsServer = https.createServer(options,server).listen(port);
     httpsServer.on('listening', () => {
-        console.log(`Server is listening on port: ${port}`)
+        console.log(`Loadbalancer is listening on port: ${port}`)
     })
 
 let options2 = {
@@ -49,7 +49,7 @@ proxy.on('proxyReq', (proxyReq, req) => {
 
 
 server.get('/register',express.json(), (req, res) => { //Handles a request from a server by saving its designated port within an array
-    console.log(req.body.newPort);
+    console.log(`Loadbalancer received server running on port ${req.body.newPort}`);
     portArr.push(req.body.newPort)
     res.end('Received') //Sends response back to server to avoid socket hang up 
 })
@@ -67,7 +67,6 @@ server.all(/^((?!register).)*$/,express.json(), (req, res) => { //Handles reques
         res.send('No servers are currently available')
         res.end
     } else {
-        console.log(req.body)
         proxy.web(req, res, {target: 'https://localhost:' + portArr[i]});
         i++
     }
