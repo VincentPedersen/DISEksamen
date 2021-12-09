@@ -3,6 +3,7 @@ const fs = require('fs');
 const server = express();
 const axios = require('axios');
 const https = require('https');
+const path = require('path');
 //Using port 0, because the OS will then automatically assign a free port
 const port = 0;
 server.use(express.urlencoded({extended: true}));
@@ -15,6 +16,7 @@ const options = {
     cert: fs.readFileSync('../Cert/server.cert')
 
 }
+
 
 
 function register(port){ //When the server turns on it sends a registration to the load balancer, letting it know a server is available and what it's port is
@@ -35,14 +37,12 @@ return axios({
 server.on('error', (err) => { //Logs if an error occurs
     console.log(`server error:\n${err.stack}`);
   });
-server.get('/', (req, res) => { //If the server gets a request from somewhere it'll respond with a message including its port
-    console.log('Request recieved');
-    
-    res.send(`Response sent from port: ${port}`);
-})
+
+
+let httpsServer;
 function createServer(port){
     try {   
-    let httpsServer = https.createServer(options,server).listen(port);
+    httpsServer = https.createServer(options,server).listen(port);
     httpsServer.on('listening', () => {
         console.log(`Server is listening on port: ${httpsServer.address().port}`)
         port = httpsServer.address().port
@@ -52,7 +52,6 @@ function createServer(port){
     } catch(error){
         console.log('Something went wrong when creating the server, please try again')
     }
-    
 }
     
 server.use(function(req, res, next) {
@@ -78,6 +77,20 @@ const updateReservation = require('../Controllers/CRUDReservation').updateReserv
 const getAllReservations = require('../Controllers/CRUDReservation').getAllReservations;
 
 
+const allReservationsClient = require('../Controllers/CRUDclient').allReservationsClient;
+
+server.get('/', (req, res) => { //If the server gets a request from somewhere it'll respond with a message including its port
+    console.log('Request recieved');
+    res.sendFile(path.join(__dirname,'../View/homepage.html'))
+    //res.send(`Response sent from port: ${httpsServer.address().port}`);
+})
+
+server.get('/client.js', (req, res) => {
+    res.sendFile(path.join(__dirname,'../View/client.js'))
+})
+
+
+
 //Endpoints for client
 server.post('/createClient',createClient);
 server.delete('/createClient',deleteClient);
@@ -94,6 +107,7 @@ server.put('/reservation',updateReservation);
 
 server.get('/allClients',getAllClients);
 server.get('/allReservations',getAllReservations);
+server.post('/allClients',allReservationsClient);
 
 createServer();
 

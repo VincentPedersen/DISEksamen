@@ -60,6 +60,8 @@ server.on('error', (err) => { //Logs if an error occurs
 let i = 0;
 
 server.all(/^((?!register).)*$/,express.json(), (req, res) => { //Handles request from a client by forwarding its request to a server
+   // console.log(req)
+    
     if(i == portArr.length) {
         i=0
     }

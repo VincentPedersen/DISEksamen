@@ -18,29 +18,51 @@ const config = {
   },
 };
 
-const executeSQL = (context) => {
+const executeSQL = (context,method,clientID) => {
   let result = [];
+  var request;
   
   //Create connection object
   const connection = new Connection(config);
 
   //Create the SQL command to be executed
   
-     
-      let request = new Request(`SELECT * FROM [Travel Reservations].[Travel Reservations].Reservations`,
-        function (err) {
-          if (err) {
-            context.log.error(err);
-            context.res.status = 500;
-            context.res.body = "Error executing T-SQL command";
-          } else {
-            context.res = {
-              body: result,
-            };
-          }
-          context.done();
-        }
-      );
+     switch(method){
+         case "GET":
+            request = new Request(`SELECT * FROM [Travel Reservations].[Travel Reservations].Reservations`,
+            function (err) {
+              if (err) {
+                context.log.error(err);
+                context.res.status = 500;
+                context.res.body = "Error executing T-SQL command";
+              } else {
+                context.res = {
+                  body: result,
+                };
+              }
+              context.done();
+            }
+          );
+          break;
+
+          case "POST":
+            request = new Request(`SELECT * FROM [Travel Reservations].[Travel Reservations].Reservations WHERE clientID = '${clientID}'`,
+            function (err) {
+              if (err) {
+                context.log.error(err);
+                context.res.status = 500;
+                context.res.body = "Error executing T-SQL command";
+              } else {
+                context.res = {
+                  body: result,
+                };
+              }
+              context.done();
+            }
+          );
+          break;
+     }
+      
       
 
     
@@ -74,7 +96,9 @@ function allReservations(context, req) {
     context.log(
       "Javascript HTTPS trigger function all Clients processed a request"
     );
-    executeSQL(context);
+    const method = req.method;
+    const clientID = req.query.clientID || (req.body && req.body.clientID);
+    executeSQL(context,method,clientID);
   } catch (err) {
     console.log(err);
   }

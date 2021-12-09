@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Travel Reservation System</title>
+</head>
+<body>
+    <h1>Travel Reservation System</h1>
+
+    <button name="GetAll" id='allId' onclick="getAllClients()">Get all users</button>
+    <br>
+    <div id="box">
+
+    </div>
+    <br>
+    <form>
+        <label>Get a specific user</label><br>
+        <input id="specId"><br>
+        <p id='viewSpec'></p><br>
+        <button type="button" id="submitBut" onclick="getSpecificClient()">Submit</button>
+    </form>
+
+<br>
+<br>
+<br>
+
+
+    <button name="GetAllReservation" id='allReservationsId' onclick="getAllReservations()">Get all reservations</button>
+    <br>
+    <div id="box2">
+
+    </div>
+    <br>
+    <form>
+        <label>Get a specific Reservation</label><br>
+        <input id="spec2Id"><br>
+        <p id='view2Spec'></p><br>
+        <button type="button" id="submitBut2" onclick="getSpecificReservation()">Submit</button>
+    </form>
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<div id= "box3">
+
+</div> 
+<div id="divCreateClient" class="divForms">
+<form id="createClient" onsubmit="createClient()">
+    <label>Create a new Client</label><br>
+    <input type="text" id="firstName" placeholder="FirstName" required/><br>
+    <input type="text" id="lastName" placeholder="LastName" required/><br>
+    <input type="text" id="streetAddress" placeholder="StreetAddress" required/> <br>
+    <input type="text" id="city" placeholder="City" required/> <br>
+    <br>
+    <button type="button" id="submitBut3" onclick="createClient()">Submit</button>
+</form>
+
+</div>
+
+
+<div id="divCreateReservation" class="divForms">
+    <form id="createReservation" onsubmit="createReservation()">
+        <label>Create a new Reservation</label><br>
+        <input type="number" id="clientIDRes" placeholder="clientID" required/><br>
+        <input type="date" id="dateStart" placeholder="dateStart" required/><br>
+        <input type="date" id="dateEnd" placeholder="dateEnd" required/> <br>
+        <input type="text" id="hotelName" placeholder="HotelName" required/> <br>
+        <input type="number" id="price" placeholder="Price" required/> <br>
+        <input type="number" id="balance" placeholder="Balance" required/> <br>
+        <br>
+        <button type="button" id="submitBut4" onclick="createReservation()">Submit</button>
+    </form>
+</div>
+
+<div id="divupdateClient" class="divForms">
+    <form id="updateClient" onsubmit="updateClient()">
+        <label>Update a Client</label><br>
+        <input type="number" id="updateClientID" placeholder="ClientID" required/> <br>
+        <input type="text" id="updateFirstName" placeholder="FirstName" required/><br>
+        <input type="text" id="updateLastName" placeholder="LastName" required/><br>
+        <input type="text" id="updateStreetAddress" placeholder="StreetAddress" required/> <br>
+        <input type="text" id="updateCity" placeholder="City" required/> <br>
+        <br>
+        <button type="button" id="submitBut7" onclick="updateClient()">Submit</button>
+    </form>
+</div>
+
+
+    <form id="updateReservation" onsubmit="updateReservation()" class="divForms">
+        <label>Update a Reservation</label><br>
+        <input type="number" id="updateReservationID" placeholder="reservationID" required/> <br>
+        <input type="number" id="updateReservationClientID" placeholder="clientID" required/><br>
+        <input type="date" id="updateReservationDateStart" placeholder="dateStart" required/><br>
+        <input type="date" id="updateReservationDateEnd" placeholder="dateEnd" required/> <br>
+        <input type="text" id="updateReservationHotelName" placeholder="HotelName" required/> <br>
+        <input type="number" id="updateReservationPrice" placeholder="Price" required/> <br>
+        <input type="number" id="updateReservationBalance" placeholder="Balance" required/> <br>
+        <br>
+        <button type="button" id="submitBut8" onclick="updateReservation()">Submit</button>
+    </form>
+
+
+    
+<br>
+<br>
+<br>
+<br>
+
+
+<div id="box4">
+
+</div>
+<br>
+
+
+<form class="deleteForms">
+    <label>Delete a client</label><br>
+    <input id="deleteClientID"><br>
+    <p id='viewDeleteClient'></p><br>
+    <button type="button" id="submitBut5" onclick="deleteClient()">Submit</button>
+</form>
+
+
+
+
+
+<form class="deleteForms">
+    <label>Delete a reservation</label><br>
+    <input id="deleteReservationID"><br>
+    <p id='viewDeleteReservation'></p><br>
+    <button type="button" id="submitBut6" onclick="deleteReservation()">Submit</button>
+</form>
+
+
+
+
+<br>
+
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="client.js"></script>
+
+    <style>
+        /*
+        #divCreateClient {display: inline-block;margin-right: 10Px;}
+        #divCreateReservation {display: inline-block; margin-right: 10px;}
+        #divUpdateClient {display: inline-block; margin-right: 10px;}
+        #divUpdateReservation {display: inline-block; margin-right: 10px;}
+        */
+        .divForms{width:200px; display: inline-block;margin-right: 10Px;}
+        .deleteForms{width:200px; display: inline-block;margin-right: 10Px;}
+    </style>
+</body>
+</html>

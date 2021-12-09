@@ -5,7 +5,7 @@ echo  "PID of this script: $$"
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd "$SCRIPT_DIR"/Server
 node --no-warnings loadbalancer.js &
-sleep 2
+sleep 1
 
 node --no-warnings server.js &
 node --no-warnings server.js &
@@ -14,7 +14,7 @@ node --no-warnings server.js &
 node --no-warnings server.js &
 
 
-sleep 2
+sleep 1
 echo "\n"
 
 echo  "${RED}Type 1 and enter when you wish to stop the servers ${NC}"
