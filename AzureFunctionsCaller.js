@@ -79,6 +79,24 @@ async function getAllClients(){
     })
 }
 
+async function allReservationsClient(clientID){
+    return axios.post('https://travelreservations.azurewebsites.net/api/AllReservations?code=PxMXQGUrDh6SNNbZDFnNNsdSTcHUEqL5Q1LXEFjEAPSfcJtt8/fBwg==',{
+        clientID:clientID
+    },function(error,response,body){
+        if(!error && response.statusCode == 200){
+            //console.log(body);
+        }
+    }).then(function(response){
+        console.log("Success!");
+        return response.data
+
+    }).catch(function(error){
+        console.log(error)
+    })
+}
+
+
+
 //Below are for Reservation
 async function createReservation(reservation){
     await axios.post('https://travelreservations.azurewebsites.net/api/Reservation?code=qhPkB63BwIo62NiglfxPPlcRz98vZWT/XCxx1Fi5iDOonLKBAZ68AA==',{
@@ -162,6 +180,7 @@ module.exports = {
     getClient,
     updateClient,
     getAllClients,
+    allReservationsClient,
 
     createReservation,
     deleteReservation,
