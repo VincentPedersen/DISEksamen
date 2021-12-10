@@ -26,7 +26,9 @@ const executeSQL = (context,method,clientID,firstName,lastName,streetAddress,cit
   //Create the SQL command to be executed
   switch (method) {
     case "GET":
-      request = new Request(`SELECT ClientID,firstName,lastName,streetAddress,city FROM [Travel Reservations].[Travel Reservations].Clients WHERE ClientID = '${clientID}'`,
+      request = new Request(`SELECT ClientID,firstName,lastName,streetAddress,city 
+                            FROM [Travel Reservations].[Travel Reservations].Clients 
+                            WHERE ClientID = '${clientID}'`,
         function (err) {
           if (err) {
             context.log.error(err);

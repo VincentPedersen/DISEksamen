@@ -64,6 +64,7 @@ server.use(function(req, res, next) {
     next();
 });
 
+//Imports the controllers
 const createClient = require('../Controllers/CRUDclient').createClient;
 const deleteClient = require('../Controllers/CRUDclient').deleteClient;
 const getClient = require('../Controllers/CRUDclient').getClient;

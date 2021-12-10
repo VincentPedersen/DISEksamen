@@ -1,3 +1,4 @@
+//Handles front-end JS
 function getSpecificClient(){
     let userID = document.getElementById('specId').value;
 

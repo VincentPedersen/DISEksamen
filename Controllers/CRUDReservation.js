@@ -4,7 +4,7 @@ const Reservation = classes.Reservations;
 
 
 function createReservation(req,res){
-    //res.send('\n Creating a new reservation...\n')
+    console.log('Creating a new reservation...')
     let newReservation = new Reservation('',req.body.clientID,req.body.dateStart,req.body.dateEnd,req.body.hotelName,req.body.price,req.body.balance);
     console.log(newReservation)
     azureCaller.createReservation(newReservation);
@@ -13,15 +13,15 @@ function createReservation(req,res){
 
 function deleteReservation(req,res){
     let reservationID = req.query.reservationID || req.body.reservationID;
-    //res.send(`\n Deleting reservation number ${reservationID}...\n`)
+    console.log(`Deleting reservation number ${reservationID}...`)
     let deleteReservation = new Reservation(reservationID,'','','','','','');
 
     azureCaller.deleteReservation(deleteReservation);
-    res.end(` Deleted reservation number ${reservationID} `)
+    res.end(`Deleted reservation number ${reservationID} `)
 }
 
 async function getReservation(req,res){
-    //res.send(`\n Getting reservation number ${reservationID}... \n`)
+    console.log(`Getting reservation number ${reservationID}...`)
     let reservationID = req.query.reservationID ||req.body.reservationID
     let getReservation = new Reservation(reservationID,'','','','','','');
 
@@ -31,11 +31,11 @@ async function getReservation(req,res){
     console.log(resultReservation)
 
     res.send(resultReservation)
-    //res.end(`\n Finished getting reservation number ${req.body.reservationID}...\n`)
+    console.log(`Finished getting reservation number ${req.body.reservationID}...`)
 }
 
 function updateReservation(req,res){
-    //res.send(`\n Updating reservation number ${req.body.reservationID}... \n`)
+    console.log(`Updating reservation number ${req.body.reservationID}...`)
     let updateReservation = new Reservation(req.body.reservationID,req.body.clientID,req.body.dateStart,req.body.dateEnd,req.body.hotelName,req.body.price,req.body.balance);
     console.log(updateReservation)
     azureCaller.updateReservation(updateReservation);
@@ -43,11 +43,11 @@ function updateReservation(req,res){
 }
 
 async function getAllReservations(req,res){
-    //res.send('\n Getting all the reservations... \n')
+    console.log('Getting all the reservations...')
     let result = await azureCaller.getAllReservations();
     console.log(result)
     res.send(result)
-    //res.end('\n Finished getting all the reservations \n')
+    console.log('Finished getting all the reservations')
 }
 
 
