@@ -9,6 +9,7 @@ function createClient(req,res){
 
     azureCaller.createClient(newClient);
     res.send(`Finished creating a new client`)
+    res.end('')
 }
 
 function deleteClient(req,res){
@@ -33,7 +34,9 @@ async function getClient(req,res){
     console.log(resultClient)
     res.send(resultClient)
     console.log(`Got the client with number ${clientID}`)
+    res.end('')
     return result
+    
 }
 
 function updateClient(req,res){
@@ -42,6 +45,7 @@ function updateClient(req,res){
     console.log(updateClient)
     azureCaller.updateClient(updateClient);
     res.send(`Finished updating client number ${req.body.clientID} `)
+    res.end('')
 }
 
 async function getAllClients(req,res){
@@ -50,6 +54,7 @@ async function getAllClients(req,res){
     console.log(result)
     res.send(result)
     console.log('Finished getting all the clients')
+    res.end('')
 }
 
 async function allReservationsClient(req,res){
@@ -57,6 +62,7 @@ async function allReservationsClient(req,res){
     console.log(clientID)
     let result = await azureCaller.allReservationsClient(clientID);
     res.send(result);
+    res.end('')
 }
 
 

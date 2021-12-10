@@ -9,6 +9,7 @@ function createReservation(req,res){
     console.log(newReservation)
     azureCaller.createReservation(newReservation);
     res.send(` Created a new reservation`)
+    res.end('')
 }
 
 function deleteReservation(req,res){
@@ -21,8 +22,8 @@ function deleteReservation(req,res){
 }
 
 async function getReservation(req,res){
-    console.log(`Getting reservation number ${reservationID}...`)
     let reservationID = req.query.reservationID ||req.body.reservationID
+    console.log(`Getting reservation number ${reservationID}...`)
     let getReservation = new Reservation(reservationID,'','','','','','');
 
     let result = await azureCaller.getReservation(getReservation);
@@ -31,7 +32,8 @@ async function getReservation(req,res){
     console.log(resultReservation)
 
     res.send(resultReservation)
-    console.log(`Finished getting reservation number ${req.body.reservationID}...`)
+    console.log(`Finished getting reservation number ${reservationID}...`)
+    res.end('')
 }
 
 function updateReservation(req,res){
@@ -40,6 +42,7 @@ function updateReservation(req,res){
     console.log(updateReservation)
     azureCaller.updateReservation(updateReservation);
     res.send(`Finished updating reservation number ${req.body.reservationID}`)
+    res.end('')
 }
 
 async function getAllReservations(req,res){
@@ -48,6 +51,7 @@ async function getAllReservations(req,res){
     console.log(result)
     res.send(result)
     console.log('Finished getting all the reservations')
+    res.end('')
 }
 
 
