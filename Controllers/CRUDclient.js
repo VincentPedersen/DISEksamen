@@ -4,7 +4,7 @@ const Client = classes.Client;
 
 
 function createClient(req,res){
-    //res.send('\n Creating a new client... \n')
+    console.log(' Creating a new client...')
     let newClient = new Client('',req.body.firstName,req.body.lastName,req.body.streetAddress,req.body.city)
 
     azureCaller.createClient(newClient);
@@ -13,7 +13,7 @@ function createClient(req,res){
 
 function deleteClient(req,res){
     let clientID = req.query.clientID || req.body.clientID;
-    //res.send(`\n Deleting client number ${clientID}... \n`)
+    console.log(`Deleting client number ${clientID}...`)
     let deleteClient = new Client(clientID,'','','','');
 
     azureCaller.deleteClient(deleteClient);
@@ -22,7 +22,7 @@ function deleteClient(req,res){
 
 async function getClient(req,res){
     let clientID = req.query.clientID || req.body.clientID
-    //res.send(` \n Getting client number ${clientID}... \n`)
+    console.log(`Getting client number ${clientID}...`)
     
     let getClient = new Client(clientID,'','','','');
 
@@ -32,12 +32,12 @@ async function getClient(req,res){
 
     console.log(resultClient)
     res.send(resultClient)
-    //res.end(`\n Got the client with number ${req.body.clientID} \n`)
+    console.log(`Got the client with number ${clientID}`)
     return result
 }
 
 function updateClient(req,res){
-    //res.send(`\n Updating client number ${req.body.clientID} \n`)
+    console.log(`Updating client number ${req.body.clientID}...`)
     let updateClient = new Client(req.body.clientID,req.body.firstName,req.body.lastName,req.body.streetAddress,req.body.city);
     console.log(updateClient)
     azureCaller.updateClient(updateClient);
@@ -45,11 +45,11 @@ function updateClient(req,res){
 }
 
 async function getAllClients(req,res){
-    //res.send('\n Getting all the clients... \n')
+    console.log('Getting all the clients...')
     let result = await azureCaller.getAllClients();
     console.log(result)
     res.send(result)
-    //res.end('\n Finished getting all the clients \n')
+    console.log('Finished getting all the clients')
 }
 
 async function allReservationsClient(req,res){

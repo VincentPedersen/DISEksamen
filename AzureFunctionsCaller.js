@@ -1,6 +1,6 @@
 const axios = require('axios').default;
 
-
+//This file calls Azure functions
 async function createClient(client){
     console.log(client)
     await axios.post('https://travelreservations.azurewebsites.net/api/createclient?code=0ifk96BOof7drCzzcUrCyeqU2KEooSWkwjafY7PZY97iC7SmlNbRNg%3D%3D',{

@@ -2,6 +2,7 @@ let Connection = require("tedious").Connection;
 let Request = require("tedious").Request;
 let TYPES = require("tedious").TYPES;
 //const config = require('../Database/config.json');
+//Config is only here to allow testing
 const config = {
   server: "vincentsdatingserver.database.windows.net",
   authentication: {

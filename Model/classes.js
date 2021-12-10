@@ -1,3 +1,4 @@
+//The two classes used to handle requests and results
 class Client{
     constructor(clientID,firstName,lastName,streetAddress,city){
         this.clientID = clientID; 

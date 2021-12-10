@@ -6,21 +6,15 @@ let port = 4200;
 
 //makes sure it works with self signed certificate
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
-/*
-let seaportServer = seaport.createServer()
-seaportServer.listen(5001);
-*/
+
 const server = express();
-/*
-server.use(express.urlencoded({extended: true}));
-server.use(express.json('application/json'));
-*/
+
 const options = {
     key: fs.readFileSync('../Cert/server.key'),
     cert: fs.readFileSync('../Cert/server.cert')
 
 }
-
+//Creates https server to allow https requests
 let httpsServer = https.createServer(options,server).listen(port);
     httpsServer.on('listening', () => {
         console.log(`Loadbalancer is listening on port: ${port}`)
@@ -58,9 +52,8 @@ server.on('error', (err) => { //Logs if an error occurs
   });
 
 let i = 0;
-
+//has a regex expression to handle everything except register (as that is the server endpoint)
 server.all(/^((?!register).)*$/,express.json(), (req, res) => { //Handles request from a client by forwarding its request to a server
-   // console.log(req)
     
     if(i == portArr.length) {
         i=0
