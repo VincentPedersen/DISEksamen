@@ -55,7 +55,7 @@ select continue in "CONTINUE"; do
     esac
 done
 
-curl -k -X PUT "https://localhost:4200/createClient" -H "Content-Type: application/json" -d '{"clientID":1,"firstName":"Vincent","lastName": "Pedersen","streetAddress":"Boring Street","city":"Boring city"}'
+curl -k -X PUT "https://localhost:4200/createClient" -H "Content-Type: application/json" -d '{"clientID":1,"firstName":"Vincent","lastName": "Garver Pedersen","streetAddress":"Chokoladestræde","city":"Candyland"}'
 
 echo "\n"
 
@@ -89,7 +89,7 @@ select continue in "CONTINUE"; do
 done
 
 
-curl -k -X DELETE "https://localhost:4200/createClient" -H "Content-Type: application/json" -d'{"clientID":16}'
+curl -k -X DELETE "https://localhost:4200/createClient" -H "Content-Type: application/json" -d'{"clientID":29}'
 
 echo "\n"
 
@@ -160,7 +160,7 @@ select continue in "CONTINUE"; do
     esac
 done
 
-curl -k -X PUT "https://localhost:4200/reservation" -H "Content-Type: application/json" -d'{"reservationID":12,"clientID": 1,"dateStart": "2022.07.18","dateEnd":"2022.07.30","hotelName": "Hilton","price": 1000.00,"balance": 4000.35 }'
+curl -k -X PUT "https://localhost:4200/reservation" -H "Content-Type: application/json" -d'{"reservationID":12,"clientID": 1,"dateStart": "2023.01.20","dateEnd":"2023.02.02","hotelName": "Four Seasons","price": 2400.00,"balance": 6000.35 }'
 
 echo "\n"
 
